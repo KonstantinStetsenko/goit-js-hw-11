@@ -29,38 +29,40 @@ export function getPhoto(searchTerm) {
   };
 
   //   iziToast.show();
-
-  return fetch(`${BASE_URL}?key=${API_KEY}&q=${searchTerm}`, {
-    method: 'POST',
-    body: OPTIONS,
-  })
-    .then(response => {
-      if (!response.ok) {
-        throw new Error('Что-то пошло не так');
-      }
-      return response.json();
+  function fetchSearch(searchQuary) {
+    return fetch(`${BASE_URL}?key=${API_KEY}&q=${searchTerm}`, {
+      method: 'POST',
+      body: OPTIONS,
     })
-    .then(data2 => {
-      hideLoader();
-      const arrData = data2.hits;
-      if (arrData.length === 0) {
-        // Массив пустой, выведите сообщение
-        iziToast.show({
-          message:
-            'Sorry, there are no images matching your search query. Please try again!',
-          backgroundColor: '#0074D9',
-          messageSize: 16,
-          messageColor: '#FFF',
-          iconColor: '',
-          titleColor: '#FAFAFB',
-          icon: 'info-outline',
-          titleSize: 16,
-          messageLineHeight: 24,
-        });
-      }
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Что-то пошло не так');
+        }
+        return response.json();
+      })
+      .then(data2 => {
+        hideLoader();
+        const arrData = data2.hits;
+        if (arrData.length === 0) {
+          // Массив пустой, выведите сообщение
+          iziToast.show({
+            message:
+              'Sorry, there are no images matching your search query. Please try again!',
+            backgroundColor: '#0074D9',
+            messageSize: 16,
+            messageColor: '#FFF',
+            iconColor: '',
+            titleColor: '#FAFAFB',
+            icon: 'info-outline',
+            titleSize: 16,
+            messageLineHeight: 24,
+          });
+        }
 
-      return arrData;
-    });
+        return arrData;
+      });
+  }
 }
 
+fetchSearch(OPTIONS.q);
 renderGallery();
