@@ -1,18 +1,18 @@
 import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
 const gallery = document.querySelector('.gallery');
-let Lightbox = new SimpleLightbox('.gallery a ', {
+let lightbox = new SimpleLightbox('.gallery a ', {
   captions: true,
   captionsData: 'alt',
   captionDelay: 250,
 });
 
 import { arrData } from '../main';
-
-const userContainerUL = document.querySelector('.users-list');
+import { userConteinerUL } from '../main';
+// export const userContainerUL = document.querySelector('.users-list');
 
 export function renderGallery() {
-  userContainerUL.innerHTML = '';
+  // userConteinerUL.innerHTML = '';
 
   // Если массив данных пуст, выводим сообщение
   if (arrData.length === 0) {
@@ -53,6 +53,7 @@ export function renderGallery() {
     .join('');
 
   // Вставляем разметку в контейнер
-  userContainerUL.insertAdjacentHTML('beforeend', markup);
-  Lightbox.refresh();
+  userConteinerUL.insertAdjacentHTML('beforeend', markup);
+
+  lightbox.refresh();
 }
